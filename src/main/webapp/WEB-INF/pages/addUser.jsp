@@ -11,6 +11,7 @@
     <title>Title</title>
 </head>
 <body>
+<p>添加界面</p><br>
 <form action="doAddUser.do" method="post">
     用户名：<input type="text" name="username"><br>
     密码：<input type="text" name="password"><br>

@@ -1,7 +1,7 @@
-package com.neuedu.service;
+package com.jmypackage1.service;
 
-import com.neuedu.dao.UserDao;
-import com.neuedu.pojo.User;
+import com.jmypackage1.dao.UserDao;
+import com.jmypackage1.pojo.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -21,7 +21,7 @@ public class UserServiceImpl implements IUserService {
     }
 
     @Override
-    public int amend(User user) {
+    public int amend(User user) {  //修改
         return dao.amend(user);
     }
 

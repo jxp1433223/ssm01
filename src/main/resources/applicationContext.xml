@@ -20,14 +20,27 @@
         http://www.springframework.org/schema/aop
        http://www.springframework.org/schema/aop/spring-aop-4.0.xsd
 ">
-    <!--开启注解驱动-->
-    <mvc:annotation-driven/>
+    <mvc:interceptors>
+        <mvc:interceptor>
+            <mvc:mapping path="/**/*.do"/>
+            <bean class="com.jmypackage1.web.TestMethod"/>
+        </mvc:interceptor>
+
+    </mvc:interceptors>
+
     <!--扫包-->
-    <context:component-scan base-package="com.neuedu.web"/>
-    <!--配置视图解析器-->
-    <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
-        <property name="viewClass" value="org.springframework.web.servlet.view.JstlView"></property>
-        <property name="prefix" value="WEB-INF/pages/"></property>
-        <property name="suffix" value=".jsp"></property>
+    <context:component-scan base-package="com.jmypackage1.service"/>
+    <bean id="dataSource" class="com.alibaba.druid.pool.DruidDataSource">
+        <property name="driverClassName" value="com.mysql.jdbc.Driver"/>
+        <property name="url" value="jdbc:mysql://127.0.0.1:3306/user?useUnicode=true&amp;characterEncoding=utf8"/>
+        <property name="username" value="root"/>
+        <property name="password" value="1234"/>
+    </bean>
+    <bean class="org.mybatis.spring.SqlSessionFactoryBean">
+        <property name="dataSource" ref="dataSource"/>
+        <property name="typeAliasesPackage" value="com.jmypackage1.pojo"/>
+    </bean>
+    <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+        <property name="basePackage" value="com.jmypackage1.dao"/>
     </bean>
 </beans>

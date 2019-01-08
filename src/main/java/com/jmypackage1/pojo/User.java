@@ -1,24 +1,19 @@
-package com.neuedu.pojo;  /*这个包里面放表*/
+package com.jmypackage1.pojo;
+
+import lombok.Data;
+
 
 public class User {
-    private int id;
+    private Integer id;
     private String username;
     private String password;
     private String tele;
-    public User() {
-    }
 
-    public User(int id, String username, String password, String tele, int grade_id) {
-        this.id = id;
-        this.username = username;
-        this.password = password;
-        this.tele = tele;
-    }
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 

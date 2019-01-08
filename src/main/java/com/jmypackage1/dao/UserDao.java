@@ -1,14 +1,14 @@
-package com.neuedu.service;
+package com.jmypackage1.dao;
 
-import com.neuedu.pojo.User;
+import com.jmypackage1.pojo.User;
 
 import java.util.List;
 
-public interface IUserService {
+public interface UserDao {
     public int insert(User user);
+    public List<User> getLists();
     public User getOne(String username);
     public int amend(User user);
-    public List<User> getLists();
     public int deleUser(int id);
     public User getOne(int id);
 }

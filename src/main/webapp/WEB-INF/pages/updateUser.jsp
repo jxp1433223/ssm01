@@ -12,7 +12,9 @@
     <title>Title</title>
 </head>
 <body>
-<form action="doUpdateUser.do" method="post"><%--设置地址栏不显示私有数据--%>
+
+<p>修改界面</p>
+<form action="doUpdateUser.do" method="post">
     <input type="text" name="id" hidden="hidden" value="${user.id}">
     用户名称：<input type="text" name="username" value="${user.username}"><br>
     密码：<input type="text" name="password" value="${user.password}"><br>
