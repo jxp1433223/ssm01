@@ -45,6 +45,7 @@ public class WebTest {
     @RequestMapping("/doUpdateUser.do")
     public String doUpdateUser(User user){
         service.amend(user);
+
         return "redirect:in.do";
     }
 }
