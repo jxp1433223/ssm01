@@ -2,11 +2,21 @@ package com.jmypackage1.web;
 
 import com.jmypackage1.pojo.User;
 import com.jmypackage1.service.IUserService;
+import com.jmypackage1.service.UserServiceImpl;
+import org.apache.commons.io.FileUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+import java.io.File;
+import java.io.IOException;
 import java.util.List;
 
 @Controller
@@ -15,6 +25,7 @@ public class WebTest {
     private IUserService service;
     @RequestMapping("/list.do")
     public String index(ModelMap map){
+        System.out.println(1);
         List<User> lists = service.getLists();
         map.put("lists",lists);
         return "list";
@@ -49,8 +60,49 @@ public class WebTest {
         service.amend(user);
         return "redirect:list.do";
     }
+    @RequestMapping("/upload.do")
+    public  String upload(){
+        return "upload";
+    }
+    @RequestMapping("/doupload.do")
+    private String doupload(@RequestParam("files") MultipartFile[] files){
+        for (MultipartFile f:files
+             ) {
+            if (!f.isEmpty()){
+
+                try {
+                    File file=new File("C:\\Users\\Administrator\\Desktop\\img(2)\\"+f.getOriginalFilename());
+                    FileUtils.copyInputStreamToFile(f.getInputStream(),file);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+        return "";
+    }
+
     @RequestMapping("/login.do")
     public  String login(){
         return "login";
     }
+    @RequestMapping("/dologin.do")
+    public String doLogin( String username, String password, HttpServletRequest req, HttpServletResponse resp){
+        User user = service.getTwo(username);
+        System.out.println(user);
+        if (user != null) {
+            if (user.getPassword().equals(password)) {
+                Cookie cookie = new Cookie("username", username);
+                cookie.setMaxAge(60 * 60 * 24 * 7);
+                resp.addCookie(cookie);
+                HttpSession session = req.getSession();
+                session.setAttribute("user", user);
+                return "redirect:list.do";
+            } else {
+                return "login";
+            }
+        }else {
+            return "login";
+        }
+    }
+
 }

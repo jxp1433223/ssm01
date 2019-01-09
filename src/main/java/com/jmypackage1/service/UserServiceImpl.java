@@ -16,8 +16,8 @@ public class UserServiceImpl implements IUserService {
     }
 
     @Override
-    public User getOne(String username) {
-        return dao.getOne(username);
+    public User getTwo(String username) {
+        return dao.getTwo(username);
     }
 
     @Override
