@@ -1,17 +1,24 @@
 package test.com.jmypackage1.test; 
 
-import org.junit.Test; 
+import com.jmypackage1.dao.UserDao;
+import com.jmypackage1.pojo.User;
+import com.jmypackage1.service.IUserService;
+import org.junit.Test;
 import org.junit.Before; 
-import org.junit.After; 
+import org.junit.After;
+
+import javax.annotation.Resource;
+import java.util.List;
 
 /** 
 * ssmTest Tester. 
 * 
 * @author <Authors name> 
-* @since <pre>Ò»ÔÂ 7, 2019</pre> 
+* @since <pre>Ò»ï¿½ï¿½ 7, 2019</pre> 
 * @version 1.0 
 */ 
-public class ssmTestTest { 
+public class ssmTestTest {
+
 
 @Before
 public void before() throws Exception { 

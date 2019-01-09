@@ -1,4 +1,3 @@
-<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%--
   Created by IntelliJ IDEA.
   User: abd
@@ -7,6 +6,7 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" isELIgnored="false" %>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <html>
 <head>
     <title>Title</title>
@@ -22,6 +22,9 @@
         table tbody tr:nth-child(odd){
             background-color: blanchedalmond;
         }
+        #fyt{
+            list-style: none;
+        }
     </style>
 </head>
 <body>
@@ -29,6 +32,9 @@
 <p>显示内容界面</p>
 <a href="addUser.do">添加</a>
 <table>
+    <form>
+        <input type="text" name="username"><input type="submit" value="sousuo">
+    </form>
     <thead>
     <tr>
         <th>用户编号</th>
@@ -50,5 +56,53 @@
     </c:forEach>
     </tbody>
 </table>
+<br>
+<ul id="fyt">
+<c:choose>
+    <c:when test="${page.pages>0}">
+        <c:choose>
+            <c:when test="${page.isFirstPage}">
+                <li>首页</li>
+                <li>上一页</li>
+            </c:when>
+            <c:otherwise>
+                <li><a href="list.do?pageNum=${page.navigateFirstPage}${uname}">首页</a></li>
+                <li><a href="list.do?pageNum=${page.prePage}${uname}">上一页</a></li>
+            </c:otherwise>
+        </c:choose>
+        <c:forEach items="${page.navigatepageNums}" var="i">
+            <c:choose>
+                <c:when test="${page.pageNum==i}">
+                    <li>${i}</li>
+                </c:when>
+                <c:otherwise>
+                    <li><a href="list.do?pageNum=${i}${uname}">${i}</a> </li>
+                </c:otherwise>
+            </c:choose>
+
+        </c:forEach>
+         <c:choose>
+            <c:when test="${page. isLastPage}">
+                <li>下一页</li>
+                <li>尾页</li>
+            </c:when>
+            <c:otherwise>
+                <li><a href="list.do?pageNum=${page.nextPage}${uname}">下一页</a></li>
+                <li><a href="list.do?pageNum=${page.navigateLastPage}${uname}">尾页</a></li>
+            </c:otherwise>
+        </c:choose>
+
+
+    </c:when>
+</c:choose>
+</ul>
+    <li><a href="#">首页</a></li>
+    <li><a href="#">上一页</a></li>
+    <li><a href="#"></a></li>
+    <li><a href="#">下一页</a></li>
+    <li><a href="#">尾页</a></li>
+    <li></li>
+
+${page};
 </body>
 </html>

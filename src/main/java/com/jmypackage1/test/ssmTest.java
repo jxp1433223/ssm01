@@ -17,14 +17,14 @@ public class ssmTest {
     @Resource
     //private UserDao dao;
     private IUserService service;
-    @Test
-    public void test01(){  /*查询全部*/
+   /* @Test
+    public void test01(){  *//*查询全部*//*
         List<User> lists = service.getLists();  //查询单元测试
         for (User u:lists
              ) {
             System.out.println(u);
         }
-    }
+    }*/
     @Test
     public void test02(){  /*添加*/
         User user = new User();
@@ -34,4 +34,10 @@ public class ssmTest {
         int i = service.insert(user);
         System.out.println(i);
     }
+    public void test03(){  /*添加*/
+        User user=new User();
+        user = service.getTwo("username");
+        System.out.println(user);
+    }
+
 }

@@ -1,10 +1,13 @@
 package com.jmypackage1.web;
 
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import com.jmypackage1.pojo.User;
 import com.jmypackage1.service.IUserService;
 import com.jmypackage1.service.UserServiceImpl;
 import org.apache.commons.io.FileUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -24,10 +27,16 @@ public class WebTest {
     @Autowired
     private IUserService service;
     @RequestMapping("/list.do")
-    public String index(ModelMap map){
-        System.out.println(1);
-        List<User> lists = service.getLists();
+    public String index(ModelMap map, HttpServletRequest req,User user){
+        int pageNum=req.getParameter("pageNum")==null?1:Integer.parseInt(req.getParameter("pageNum"));
+       int pageSzie=1;
+        PageHelper.startPage(pageNum,pageSzie);
+        List<User> lists = service.getLists(user);
+        String uname="&username="+user.getUsername();
+        PageInfo<User> page=new PageInfo<>(lists,5);
         map.put("lists",lists);
+        map.put("page",page);
+        map.put("uname",uname);
         return "list";
     }
 

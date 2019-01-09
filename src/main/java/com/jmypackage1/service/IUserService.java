@@ -8,7 +8,7 @@ public interface IUserService {
     public int insert(User user);
     public User getTwo(String username);
     public int amend(User user);
-    public List<User> getLists();
+    public List<User> getLists(User user);
     public int deleUser(int id);
     public User getOne(int id);
 }

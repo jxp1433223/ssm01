@@ -9,6 +9,7 @@ import java.util.List;
 @Service
 public class UserServiceImpl implements IUserService {
     @Autowired
+    /*依赖注入 控制反转*/
     private UserDao dao;
     @Override
     public int insert(User user) {   //去调用了一下dao层
@@ -26,8 +27,8 @@ public class UserServiceImpl implements IUserService {
     }
 
     @Override
-    public List<User> getLists() {
-        return dao.getLists();
+    public List<User> getLists(User user) {
+        return dao.getLists(user);
     }
 
     @Override
