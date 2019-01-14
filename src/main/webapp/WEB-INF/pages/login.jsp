@@ -11,7 +11,7 @@
     <title>Title</title>
 </head>
 <body>
- <form action="dologin.do" method="get" >
+ <form action="dologin.do" method="post" >
      <input type="text" name="username"><br>
      <input type="password" name="password"><br>
      <input type="submit" value="login">

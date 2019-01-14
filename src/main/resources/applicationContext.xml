@@ -20,8 +20,6 @@
         http://www.springframework.org/schema/aop
        http://www.springframework.org/schema/aop/spring-aop-4.0.xsd
 ">
-
-
     <!--扫包-->
     <context:component-scan base-package="com.jmypackage1.service"/>
     <bean id="dataSource" class="com.alibaba.druid.pool.DruidDataSource">
@@ -46,9 +44,6 @@
                         </value>
                     </property>
                 </bean>
-
-
-
             </array>
         </property>
     </bean>

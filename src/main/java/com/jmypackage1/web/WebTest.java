@@ -6,6 +6,7 @@ import com.jmypackage1.pojo.User;
 import com.jmypackage1.service.IUserService;
 import com.jmypackage1.service.UserServiceImpl;
 import org.apache.commons.io.FileUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Controller;
@@ -31,12 +32,18 @@ public class WebTest {
         int pageNum=req.getParameter("pageNum")==null?1:Integer.parseInt(req.getParameter("pageNum"));
        int pageSzie=1;
         PageHelper.startPage(pageNum,pageSzie);
-        List<User> lists = service.getLists(user);
-        String uname="&username="+user.getUsername();
+        List<User> lists=null;
+        if (StringUtils.isBlank(user.getUsername())){
+            user.setUsername(null);
+            lists = service.getLists(user);
+        }else {
+            lists=service.getLists(user);
+            String uname="&username="+user.getUsername();
+            map.put("uname",uname);
+        }
         PageInfo<User> page=new PageInfo<>(lists,5);
-        map.put("lists",lists);
+       map.put("lists",lists);
         map.put("page",page);
-        map.put("uname",uname);
         return "list";
     }
 
@@ -72,6 +79,22 @@ public class WebTest {
     @RequestMapping("/upload.do")
     public  String upload(){
         return "upload";
+    }
+    @RequestMapping("/register.do")
+    public String register(){
+        return "register";
+    }
+    @RequestMapping("/doRegister.do")
+    private  String  doregister(String uname,String pwd,String pwds,String tele,String answer){
+        if(uname!="") {
+            User user = service.getTwo(uname);
+            if (pwd!=""&&pwd.equals(pwds)){
+                return "4";
+            }else {
+                return  "3";
+            }
+        }
+        return  "register";
     }
     @RequestMapping("/doupload.do")
     private String doupload(@RequestParam("files") MultipartFile[] files){
